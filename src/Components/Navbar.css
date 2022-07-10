@@ -1,6 +1,9 @@
 .wrapper {
   height: 40px;
-  background-color: rgba(238, 106, 227, 1);
+  background-image: linear-gradient(
+    rgba(85, 38, 38, 0.1),
+    rgba(98, 0, 128, 0.2)
+  );
   display: flex;
   justify-content: space-around;
   align-items: center;

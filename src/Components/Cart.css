@@ -21,7 +21,6 @@
   margin: 0 1%;
 }
 .cart-item-quantity {
-  background-color: blueviolet;
   display: inline-block;
   height: fit-content;
   width: 20%;
@@ -45,4 +44,47 @@
   display: flex;
   justify-content: end;
   margin-right: 1rem;
+}
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 3000px) {
+  .cart-item-quantity1 {
+    display: flex;
+
+    width: 30%;
+    margin-right: 10%;
+    align-items: center;
+  }
+  .cart-image {
+    ma-width: 5%;
+  }
+  .cart-price {
+    margin-left: -15%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .cart-image {
+    display: none;
+  }
+  .cart-item-name {
+    font-size: smaller;
+    min-width: 20%;
+  }
+  .plus-minus {
+    font-size: 30px;
+    padding: 5px;
+    width: 80%;
+  }
+  .cart-item-quantity {
+    min-width: 50%;
+    text-align: center;
+    margin-right: -10%;
+  }
+  .cart-price {
+    margin-left: 0.1%;
+  }
+  .cart-total {
+    min-width: 30%;
+  }
 }

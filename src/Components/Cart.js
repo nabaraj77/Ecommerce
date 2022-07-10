@@ -19,7 +19,7 @@ const Cart = ({ cartItems, minusHandler, plusHandler }) => {
               alt={items.productName}
               className="cart-image"
             />
-            <div className="cart-item-quantity">
+            <div className="cart-item-quantity1">
               <button
                 className="plus-minus"
                 onClick={() => minusHandler(items.productID)}

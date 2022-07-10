@@ -105,7 +105,7 @@ function App() {
       setCartItems(updatedData);
     }
   };
-  //console.log(cartItems);
+  console.log(Data);
 
   //ADDING ITEMS TO THE CART
   const addItemsHandler = (id) => {
