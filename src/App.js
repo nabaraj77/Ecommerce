@@ -39,14 +39,22 @@ function App() {
         .map((item) => {
           if (item.productID === exists.productID) {
             if (item.maxQuantity && item.orderedQuantity < item.maxQuantity) {
-              toast(`${item.maxQuantity - item.orderedQuantity} can be Added`);
+              toast(
+                `${
+                  item.maxQuantity - item.orderedQuantity
+                } more items can be Added`
+              );
               return item;
             } else if (
               item.maxQuantity &&
               item.orderedQuantity >= item.maxQuantity
             ) {
               toast(`Max Quantity Reached: ${item.maxQuantity}`);
-              return { ...item, orderedQuantity: item.maxQuantity };
+              return {
+                ...item,
+                available: "OutOfStock",
+                orderedQuantity: item.maxQuantity,
+              };
             } else {
               return item;
             }
@@ -66,22 +74,34 @@ function App() {
       return items.productID === id;
     });
     if (exists) {
-      const updatedData = cartItems.map((items) => {
-        //Updating the ordered Quantity for decreasing the quantity of Products
-        if (
-          items.productID === exists.productID &&
-          items.orderedQuantity !== 0
-        ) {
-          return { ...items, orderedQuantity: exists.orderedQuantity - 1 };
-        } else if (
-          items.productID === exists.productID &&
-          items.orderedQuantity === 0
-        ) {
-          return { ...items, orderedQuantity: 0 };
-        } else {
-          return items;
-        }
-      });
+      const updatedData = cartItems
+        .map((items) => {
+          //Updating the ordered Quantity for decreasing the quantity of Products
+          if (
+            items.productID === exists.productID &&
+            items.orderedQuantity !== 0
+          ) {
+            return { ...items, orderedQuantity: exists.orderedQuantity - 1 };
+          } else if (
+            items.productID === exists.productID &&
+            items.orderedQuantity === 0
+          ) {
+            return { ...items, orderedQuantity: 0 };
+          } else {
+            return items;
+          }
+        })
+        .map((item) => {
+          if (item.productID === exists.productID) {
+            if (item.maxQuantity && item.orderedQuantity < item.maxQuantity) {
+              return { ...item, available: "LimitedAvailability" };
+            } else {
+              return item;
+            }
+          } else {
+            return item;
+          }
+        });
       setCartItems(updatedData);
     }
   };
