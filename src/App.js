@@ -39,13 +39,26 @@ function App() {
           return items.productID === id;
         }),
       ];
-      toast.success("Added to the Cart");
-      setCartItems(cart);
+
+      // Adding Quantity Ordered Numbers to the cart
+      const quantityAddedCart = cart.map((items) => {
+        if (items.productID === id) {
+          return { ...items, orderedQuantity: 1 };
+        } else {
+          return items;
+        }
+      });
+      console.log(quantityAddedCart);
+      setCartItems(quantityAddedCart);
+      toast.success("Item Added to the Cart");
+
+      //INCREASING THE CART ITEMS NUMBER
       setItemCount((prev) => {
         return prev + 1;
       });
     }
   };
+
   return (
     <>
       <BrowserRouter>
