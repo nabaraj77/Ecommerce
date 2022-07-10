@@ -43,7 +43,9 @@ function App() {
           item.maxQuantity &&
           item.orderedQuantity === item.maxQuantity
         ) {
-          toast.error(`Max quantity reached`);
+          toast.error(
+            `${item.productName}, Max quantity available was: ${item.maxQuantity}`
+          );
           return {
             ...item,
             available: "OutOfStock",
