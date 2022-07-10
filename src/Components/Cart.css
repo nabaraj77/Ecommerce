@@ -56,7 +56,7 @@
     align-items: center;
   }
   .cart-image {
-    ma-width: 5%;
+    max-width: 5%;
   }
   .cart-price {
     margin-left: -15%;
