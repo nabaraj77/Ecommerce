@@ -44,17 +44,20 @@ function App() {
     const exists = cartItems.find((items) => {
       return items.productID === id;
     });
-    exists &&
+    if (exists) {
       setCartItems(
         cartItems.map((items) => {
           //Updating the ordered Quantity
-          if (items.productID === id) {
+          if (items.productID === id && items.orderedQuantity !== 0) {
             return { ...items, orderedQuantity: exists.orderedQuantity - 1 };
+          } else if (items.productID === id && items.orderedQuantity === 0) {
+            return { ...items, orderedQuantity: 0 };
           } else {
             return items;
           }
         })
       );
+    }
   };
   console.log(cartItems);
 
