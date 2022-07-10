@@ -1,24 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./Components/Navbar";
+import Data from "./Components/Data.json";
+import Main from "./Components/Main";
+import { useEffect, useState } from "react";
+import Cart from "./Components/Cart";
+
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 function App() {
+  //for Counting items
+
+  const [data, setData] = useState(Data);
+  const [itemCount, setItemCount] = useState(0);
+  //For adding items
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    setData(Data);
+  }, []);
+
+  const plusHandler = () => {};
+
+  const minusHandler = () => {};
+
+  const addItemsHandler = () => {};
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar itemCount={itemCount} />
+                <Main
+                  data={data}
+                  addItemsHandler={addItemsHandler}
+                  setData={setData}
+                />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cartItems={cartItems}
+                minusHandler={minusHandler}
+                plusHandler={plusHandler}
+              />
+            }
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -1,0 +1,52 @@
+[
+  {
+    "identifier": "564b85aadbae4667-a953426497e9a27d",
+    "maxQuantity": 3,
+    "productName": "Kelloggs Cornflakes 250gm Box",
+    "available": "LimitedAvailability",
+    "productID": "1f08ee03-ec6c1b66",
+    "productImage": "./Images/cornflake.jpg",
+    "price": 200
+  },
+  {
+    "identifier": "5a7a2f312e884425-90d6d496bc27082a",
+    "productName": "All Out Power Slider combi",
+    "available": "InStock",
+    "productID": "7e8d7fdb-926b951c",
+    "productImage": "./Images/allout.jpeg",
+    "price": 300
+  },
+  {
+    "identifier": "efa15697f5e74f52-9a436f707edf1009",
+    "productName": "All Out Ultra Power + Slider Mosquito Repellent (Refill) - 45 ML",
+    "available": "InStock",
+    "productID": "48196e12-1178f667",
+    "productImage": "./Images/mosquito.jpg",
+    "price": 400
+  },
+  {
+    "identifier": "9d241f1fd13b4538-a6aafcdee7a508ac",
+    "productName": "Small Red Potato, 1 KG",
+    "available": "OutOfStock",
+    "productID": "68d62905-6b5aa5a6",
+    "productImage": "./Images/redpotato.jpeg",
+    "price": 500
+  },
+  {
+    "identifier": "d7f2fada17274d91-8286d5f4ee83f676",
+    "maxQuantity": 5,
+    "productName": "Kellogg's Muesli Fruit &  Nut - 750 gm",
+    "available": "LimitedAvailability",
+    "productID": "bd6b4771-a8a8beb0",
+    "productImage": "./Images/kelloys.jpg",
+    "price": 600
+  },
+  {
+    "identifier": "54a86579532a4f4c-93e83585f26eba1a",
+    "productName": "Kellogg's Muesli with 0% Added Sugar Pouch, 500 g",
+    "available": "OutOfStock",
+    "productID": "6209bbe9-86da0b67",
+    "productImage": "./Images/kellogsmuesli_no_added_sugar1.jpg",
+    "price": 700
+  }
+]
