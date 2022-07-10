@@ -20,9 +20,43 @@ function App() {
     setData(Data);
   }, []);
 
-  const plusHandler = () => {};
+  const plusHandler = (id) => {
+    const exists = cartItems.find((items) => {
+      return items.productID === id;
+    });
+    //console.log(exists);
 
-  const minusHandler = () => {};
+    //Updating the ordered Quantity
+    exists &&
+      setCartItems(
+        cartItems.map((items) => {
+          //Updating the ordered Quantity
+          if (items.productID === id) {
+            return { ...items, orderedQuantity: exists.orderedQuantity + 1 };
+          } else {
+            return items;
+          }
+        })
+      );
+  };
+
+  const minusHandler = (id) => {
+    const exists = cartItems.find((items) => {
+      return items.productID === id;
+    });
+    exists &&
+      setCartItems(
+        cartItems.map((items) => {
+          //Updating the ordered Quantity
+          if (items.productID === id) {
+            return { ...items, orderedQuantity: exists.orderedQuantity - 1 };
+          } else {
+            return items;
+          }
+        })
+      );
+  };
+  console.log(cartItems);
 
   //ADDING ITEMS TO THE CART
   const addItemsHandler = (id) => {
@@ -48,7 +82,6 @@ function App() {
           return items;
         }
       });
-      console.log(quantityAddedCart);
       setCartItems(quantityAddedCart);
       toast.success("Item Added to the Cart");
 

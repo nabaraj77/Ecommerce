@@ -27,7 +27,7 @@ const Cart = ({ cartItems, minusHandler, plusHandler }) => {
                 -
               </button>
               <span className="cart-item-quantity">
-                {items.quantityOrdered}
+                {items.orderedQuantity}
               </span>
               <button
                 className="plus-minus"
