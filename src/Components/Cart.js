@@ -3,7 +3,7 @@ import "./Cart.css";
 
 const Cart = ({ cartItems, minusHandler, plusHandler }) => {
   let totalAmount = cartItems.reduce((acc, val) => {
-    acc += val.quantityOrdered * val.price;
+    acc += val.orderedQuantity * val.price;
     return acc;
   }, 0);
   //console.log("Cart");
@@ -39,7 +39,7 @@ const Cart = ({ cartItems, minusHandler, plusHandler }) => {
 
             <p className="cart-price">Rs {items.price}</p>
             <p className="cart-total">
-              Total: {items.quantityOrdered * items.price}
+              Total: {items.orderedQuantity * items.price}
             </p>
           </div>
         );

@@ -24,42 +24,68 @@ function App() {
     const exists = cartItems.find((items) => {
       return items.productID === id;
     });
-    //console.log(exists);
 
-    //Updating the ordered Quantity
-    exists &&
-      setCartItems(
-        cartItems.map((items) => {
-          //Updating the ordered Quantity
-          if (items.productID === id) {
-            return { ...items, orderedQuantity: exists.orderedQuantity + 1 };
+    // //console.log(exists);
+    // //Updating the ordered Quantity
+    if (exists) {
+      const updatedCart = cartItems
+        .map((items) => {
+          if (items.productID === exists.productID) {
+            return { ...items, orderedQuantity: items.orderedQuantity + 1 };
           } else {
             return items;
           }
         })
-      );
+        .map((item) => {
+          if (item.productID === exists.productID) {
+            if (item.maxQuantity && item.orderedQuantity < item.maxQuantity) {
+              toast(`${item.maxQuantity - item.orderedQuantity} can be Added`);
+              return item;
+            } else if (
+              item.maxQuantity &&
+              item.orderedQuantity >= item.maxQuantity
+            ) {
+              toast(`Max Quantity Reached: ${item.maxQuantity}`);
+              return { ...item, orderedQuantity: item.maxQuantity };
+            } else {
+              return item;
+            }
+          } else {
+            return item;
+          }
+        });
+      setCartItems(updatedCart);
+    }
   };
+
+  console.log(cartItems);
+  //For No of Items Dispalying messages
 
   const minusHandler = (id) => {
     const exists = cartItems.find((items) => {
       return items.productID === id;
     });
     if (exists) {
-      setCartItems(
-        cartItems.map((items) => {
-          //Updating the ordered Quantity
-          if (items.productID === id && items.orderedQuantity !== 0) {
-            return { ...items, orderedQuantity: exists.orderedQuantity - 1 };
-          } else if (items.productID === id && items.orderedQuantity === 0) {
-            return { ...items, orderedQuantity: 0 };
-          } else {
-            return items;
-          }
-        })
-      );
+      const updatedData = cartItems.map((items) => {
+        //Updating the ordered Quantity for decreasing the quantity of Products
+        if (
+          items.productID === exists.productID &&
+          items.orderedQuantity !== 0
+        ) {
+          return { ...items, orderedQuantity: exists.orderedQuantity - 1 };
+        } else if (
+          items.productID === exists.productID &&
+          items.orderedQuantity === 0
+        ) {
+          return { ...items, orderedQuantity: 0 };
+        } else {
+          return items;
+        }
+      });
+      setCartItems(updatedData);
     }
   };
-  console.log(cartItems);
+  //console.log(cartItems);
 
   //ADDING ITEMS TO THE CART
   const addItemsHandler = (id) => {
@@ -67,6 +93,7 @@ function App() {
     const exists = cartItems.find((item) => {
       return item.productID === id;
     });
+
     if (exists) {
       toast.success("Item Already exists");
     } else {
