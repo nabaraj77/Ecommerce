@@ -21,52 +21,72 @@ function App() {
   }, []);
 
   const plusHandler = (id) => {
-    const exists = cartItems.find((items) => {
-      return items.productID === id;
-    });
-
     // //console.log(exists);
     // //Updating the ordered Quantity
-    if (exists) {
-      const updatedCart = cartItems
-        .map((items) => {
-          if (items.productID === exists.productID) {
-            return { ...items, orderedQuantity: items.orderedQuantity + 1 };
+
+    const updatedCart = cartItems.map((item) => {
+      if (item.productID === id) {
+        const availableQuantity1 = item.maxQuantity - item.orderedQuantity - 1;
+        if (
+          item.maxQuantity &&
+          item.orderedQuantity < item.maxQuantity &&
+          item.orderedQuantity - item.maxQuantity !== 0
+        ) {
+          if (availableQuantity1 > 0) {
+            toast(
+              `${
+                item.maxQuantity - item.orderedQuantity - 1
+              } more items can be Added`
+            );
           } else {
-            return items;
+            toast(`No More Items can be added`);
           }
-        })
-        .map((item) => {
-          if (item.productID === exists.productID) {
-            if (item.maxQuantity && item.orderedQuantity < item.maxQuantity) {
-              toast(
-                `${
-                  item.maxQuantity - item.orderedQuantity
-                } more items can be Added`
-              );
-              return item;
-            } else if (
-              item.maxQuantity &&
-              item.orderedQuantity >= item.maxQuantity
-            ) {
-              toast(`Max Quantity Reached: ${item.maxQuantity}`);
-              return {
-                ...item,
-                available: "OutOfStock",
-                orderedQuantity: item.maxQuantity,
-              };
-            } else {
-              return item;
-            }
-          } else {
-            return item;
-          }
-        });
-      setCartItems(updatedCart);
-    }
+
+          return { ...item, orderedQuantity: item.orderedQuantity + 1 };
+        } else if (
+          item.maxQuantity &&
+          item.orderedQuantity === item.maxQuantity
+        ) {
+          toast.error(`Max quantity reached`);
+          return {
+            ...item,
+            available: "OutOfStock",
+          };
+        } else {
+          return item;
+        }
+      }
+      return item;
+    });
+    const exist = updatedCart.find((item) => {
+      return item.productID === id;
+    });
+
+    const originalData = data.map((items) => {
+      const availableQuantity = items.maxQuantity - exist.orderedQuantity;
+      if (items.productID === id) {
+        if (availableQuantity === 0) {
+          return { ...items, available: "OutOfStock", availableQuantity: 0 };
+        }
+        if (items.maxQuantity) {
+          return {
+            ...items,
+            availableQuantity: availableQuantity,
+          };
+        }
+        return items;
+      } else {
+        return items;
+      }
+    });
+    console.log(updatedCart, "hello");
+
+    console.log(originalData, "Hi");
+    setData(originalData);
+    setCartItems(updatedCart);
   };
 
-  console.log(cartItems);
+  //console.log(cartItems);
   //For No of Items Dispalying messages
 
   const minusHandler = (id) => {
@@ -104,8 +124,23 @@ function App() {
         });
       setCartItems(updatedData);
     }
+
+    const originalData = data.map((items) => {
+      if (items.productID === exists.productID) {
+        if (items.maxQuantity) {
+          return {
+            ...items,
+            available: exists.available,
+            availableQuantity: items.maxQuantity - exists.orderedQuantity,
+          };
+        }
+        return { ...items, available: exists.available };
+      } else {
+        return items;
+      }
+    });
+    setData(originalData);
   };
-  console.log(Data);
 
   //ADDING ITEMS TO THE CART
   const addItemsHandler = (id) => {
@@ -141,7 +176,6 @@ function App() {
       });
     }
   };
-
   return (
     <>
       <BrowserRouter>
@@ -171,7 +205,7 @@ function App() {
           ></Route>
         </Routes>
       </BrowserRouter>
-      <Toaster position="top-right" />{" "}
+      <Toaster position="top-right" />
     </>
   );
 }
