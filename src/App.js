@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Cart from "./Components/Cart";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   //for Counting items
@@ -23,7 +24,28 @@ function App() {
 
   const minusHandler = () => {};
 
-  const addItemsHandler = () => {};
+  //ADDING ITEMS TO THE CART
+  const addItemsHandler = (id) => {
+    //Checking Whether the product exists or not
+    const exists = cartItems.find((item) => {
+      return item.productID === id;
+    });
+    if (exists) {
+      toast.success("Item Already exists");
+    } else {
+      const cart = [
+        ...cartItems,
+        ...Data.filter((items) => {
+          return items.productID === id;
+        }),
+      ];
+      toast.success("Added to the Cart");
+      setCartItems(cart);
+      setItemCount((prev) => {
+        return prev + 1;
+      });
+    }
+  };
   return (
     <>
       <BrowserRouter>
@@ -53,6 +75,7 @@ function App() {
           ></Route>
         </Routes>
       </BrowserRouter>
+      <Toaster position="top-right" />{" "}
     </>
   );
 }
