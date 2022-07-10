@@ -27,11 +27,7 @@ function App() {
     const updatedCart = cartItems.map((item) => {
       if (item.productID === id) {
         const availableQuantity1 = item.maxQuantity - item.orderedQuantity - 1;
-        if (
-          item.maxQuantity &&
-          item.orderedQuantity < item.maxQuantity &&
-          item.orderedQuantity - item.maxQuantity !== 0
-        ) {
+        if (item.maxQuantity && item.orderedQuantity < item.maxQuantity) {
           if (availableQuantity1 > 0) {
             toast(
               `${
@@ -53,7 +49,7 @@ function App() {
             available: "OutOfStock",
           };
         } else {
-          return item;
+          return { ...item, orderedQuantity: item.orderedQuantity + 1 };
         }
       }
       return item;
